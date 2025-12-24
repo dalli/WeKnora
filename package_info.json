@@ -1,0 +1,400 @@
+{
+  "go": {
+    "github.com/PuerkitoBio/goquery": {
+      "github": "https://github.com/PuerkitoBio/goquery",
+      "license": "BSD 3-Clause \"New\" or \"Revised\" License"
+    },
+    "github.com/chromedp/chromedp": {
+      "github": "https://github.com/chromedp/chromedp",
+      "license": "MIT License"
+    },
+    "github.com/elastic/go-elasticsearch/v7": {
+      "github": "https://github.com/elastic/go-elasticsearch/v7",
+      "license": null
+    },
+    "github.com/elastic/go-elasticsearch/v8": {
+      "github": "https://github.com/elastic/go-elasticsearch/v8",
+      "license": null
+    },
+    "github.com/gin-contrib/cors": {
+      "github": "https://github.com/gin-contrib/cors",
+      "license": "MIT License"
+    },
+    "github.com/gin-gonic/gin": {
+      "github": "https://github.com/gin-gonic/gin",
+      "license": "MIT License"
+    },
+    "github.com/go-viper/mapstructure/v2": {
+      "github": "https://github.com/go-viper/mapstructure/v2",
+      "license": null
+    },
+    "github.com/golang-jwt/jwt/v5": {
+      "github": "https://github.com/golang-jwt/jwt/v5",
+      "license": null
+    },
+    "github.com/golang-migrate/migrate/v4": {
+      "github": "https://github.com/golang-migrate/migrate/v4",
+      "license": null
+    },
+    "github.com/google/uuid": {
+      "github": "https://github.com/google/uuid",
+      "license": "BSD 3-Clause \"New\" or \"Revised\" License"
+    },
+    "github.com/hibiken/asynq": {
+      "github": "https://github.com/hibiken/asynq",
+      "license": "MIT License"
+    },
+    "github.com/mark3labs/mcp-go": {
+      "github": "https://github.com/mark3labs/mcp-go",
+      "license": "MIT License"
+    },
+    "github.com/minio/minio-go/v7": {
+      "github": "https://github.com/minio/minio-go/v7",
+      "license": null
+    },
+    "github.com/neo4j/neo4j-go-driver/v6": {
+      "github": "https://github.com/neo4j/neo4j-go-driver/v6",
+      "license": null
+    },
+    "github.com/ollama/ollama": {
+      "github": "https://github.com/ollama/ollama",
+      "license": "MIT License"
+    },
+    "github.com/panjf2000/ants/v2": {
+      "github": "https://github.com/panjf2000/ants/v2",
+      "license": null
+    },
+    "github.com/parquet-go/parquet-go": {
+      "github": "https://github.com/parquet-go/parquet-go",
+      "license": "Apache License 2.0"
+    },
+    "github.com/pganalyze/pg_query_go/v6": {
+      "github": "https://github.com/pganalyze/pg_query_go/v6",
+      "license": null
+    },
+    "github.com/pgvector/pgvector-go": {
+      "github": "https://github.com/pgvector/pgvector-go",
+      "license": "MIT License"
+    },
+    "github.com/qdrant/go-client": {
+      "github": "https://github.com/qdrant/go-client",
+      "license": "Apache License 2.0"
+    },
+    "github.com/redis/go-redis/v9": {
+      "github": "https://github.com/redis/go-redis/v9",
+      "license": null
+    },
+    "github.com/sashabaranov/go-openai": {
+      "github": "https://github.com/sashabaranov/go-openai",
+      "license": "Apache License 2.0"
+    },
+    "github.com/sirupsen/logrus": {
+      "github": "https://github.com/sirupsen/logrus",
+      "license": "MIT License"
+    },
+    "github.com/spf13/viper": {
+      "github": "https://github.com/spf13/viper",
+      "license": "MIT License"
+    },
+    "github.com/stretchr/testify": {
+      "github": "https://github.com/stretchr/testify",
+      "license": "MIT License"
+    },
+    "github.com/swaggo/files": {
+      "github": "https://github.com/swaggo/files",
+      "license": "MIT License"
+    },
+    "github.com/swaggo/gin-swagger": {
+      "github": "https://github.com/swaggo/gin-swagger",
+      "license": "MIT License"
+    },
+    "github.com/swaggo/swag": {
+      "github": "https://github.com/swaggo/swag",
+      "license": "MIT License"
+    },
+    "github.com/tencentyun/cos-go-sdk-v5": {
+      "github": "https://github.com/tencentyun/cos-go-sdk-v5",
+      "license": "MIT License"
+    },
+    "github.com/yanyiwu/gojieba": {
+      "github": "https://github.com/yanyiwu/gojieba",
+      "license": "MIT License"
+    },
+    "go.opentelemetry.io/otel": {
+      "github": "https://github.com/open-telemetry/otel",
+      "license": null
+    },
+    "go.uber.org/dig": {
+      "github": "https://github.com/uber-go/dig",
+      "license": "MIT License"
+    },
+    "golang.org/x/crypto": {
+      "github": "https://github.com/golang/crypto",
+      "license": "BSD 3-Clause \"New\" or \"Revised\" License"
+    },
+    "golang.org/x/sync": {
+      "github": "https://github.com/golang/sync",
+      "license": "BSD 3-Clause \"New\" or \"Revised\" License"
+    },
+    "google.golang.org/grpc": {
+      "github": null,
+      "license": null
+    },
+    "google.golang.org/protobuf": {
+      "github": null,
+      "license": null
+    },
+    "gorm.io/driver/postgres": {
+      "github": "https://github.com/go-gorm/postgres",
+      "license": "MIT License"
+    },
+    "gorm.io/gorm": {
+      "github": "https://github.com/go-gorm/gorm",
+      "license": "MIT License"
+    }
+  },
+  "npm": {
+    "@microsoft/fetch-event-source": {
+      "npm": "https://www.npmjs.com/package/@microsoft/fetch-event-source",
+      "license": null
+    },
+    "@tsconfig/node22": {
+      "npm": "https://www.npmjs.com/package/@tsconfig/node22",
+      "license": null
+    },
+    "@types/dompurify": {
+      "npm": "https://www.npmjs.com/package/@types/dompurify",
+      "license": null
+    },
+    "@types/marked": {
+      "npm": "https://www.npmjs.com/package/@types/marked",
+      "license": null
+    },
+    "@types/node": {
+      "npm": "https://www.npmjs.com/package/@types/node",
+      "license": null
+    },
+    "@types/papaparse": {
+      "npm": "https://www.npmjs.com/package/@types/papaparse",
+      "license": null
+    },
+    "@vitejs/plugin-vue": {
+      "npm": "https://www.npmjs.com/package/@vitejs/plugin-vue",
+      "license": null
+    },
+    "@vitejs/plugin-vue-jsx": {
+      "npm": "https://www.npmjs.com/package/@vitejs/plugin-vue-jsx",
+      "license": null
+    },
+    "@vue/tsconfig": {
+      "npm": "https://www.npmjs.com/package/@vue/tsconfig",
+      "license": null
+    },
+    "axios": {
+      "npm": "https://www.npmjs.com/package/axios",
+      "license": null
+    },
+    "dompurify": {
+      "npm": "https://www.npmjs.com/package/dompurify",
+      "license": null
+    },
+    "highlight.js": {
+      "npm": "https://www.npmjs.com/package/highlight.js",
+      "license": null
+    },
+    "less": {
+      "npm": "https://www.npmjs.com/package/less",
+      "license": null
+    },
+    "less-loader": {
+      "npm": "https://www.npmjs.com/package/less-loader",
+      "license": null
+    },
+    "marked": {
+      "npm": "https://www.npmjs.com/package/marked",
+      "license": null
+    },
+    "npm-run-all2": {
+      "npm": "https://www.npmjs.com/package/npm-run-all2",
+      "license": null
+    },
+    "pagefind": {
+      "npm": "https://www.npmjs.com/package/pagefind",
+      "license": null
+    },
+    "papaparse": {
+      "npm": "https://www.npmjs.com/package/papaparse",
+      "license": null
+    },
+    "pinia": {
+      "npm": "https://www.npmjs.com/package/pinia",
+      "license": null
+    },
+    "swiper": {
+      "npm": "https://www.npmjs.com/package/swiper",
+      "license": null
+    },
+    "tdesign-icons-vue-next": {
+      "npm": "https://www.npmjs.com/package/tdesign-icons-vue-next",
+      "license": null
+    },
+    "tdesign-vue-next": {
+      "npm": "https://www.npmjs.com/package/tdesign-vue-next",
+      "license": null
+    },
+    "typescript": {
+      "npm": "https://www.npmjs.com/package/typescript",
+      "license": null
+    },
+    "vite": {
+      "npm": "https://www.npmjs.com/package/vite",
+      "license": null
+    },
+    "vue": {
+      "npm": "https://www.npmjs.com/package/vue",
+      "license": null
+    },
+    "vue-i18n": {
+      "npm": "https://www.npmjs.com/package/vue-i18n",
+      "license": null
+    },
+    "vue-router": {
+      "npm": "https://www.npmjs.com/package/vue-router",
+      "license": null
+    },
+    "vue-tsc": {
+      "npm": "https://www.npmjs.com/package/vue-tsc",
+      "license": null
+    },
+    "webpack": {
+      "npm": "https://www.npmjs.com/package/webpack",
+      "license": null
+    },
+    "xlsx": {
+      "npm": "https://www.npmjs.com/package/xlsx",
+      "license": null
+    }
+  },
+  "python": {
+    "antiword": {
+      "pypi": "https://pypi.org/project/antiword/",
+      "license": null
+    },
+    "asyncio": {
+      "pypi": "https://pypi.org/project/asyncio/",
+      "license": null
+    },
+    "beautifulsoup4": {
+      "pypi": "https://pypi.org/project/beautifulsoup4/",
+      "license": null
+    },
+    "cos-python-sdk-v5": {
+      "pypi": "https://pypi.org/project/cos-python-sdk-v5/",
+      "license": null
+    },
+    "goose3[all]": {
+      "pypi": "https://pypi.org/project/goose3/",
+      "license": null
+    },
+    "grpcio": {
+      "pypi": "https://pypi.org/project/grpcio/",
+      "license": null
+    },
+    "grpcio-health-checking": {
+      "pypi": "https://pypi.org/project/grpcio-health-checking/",
+      "license": null
+    },
+    "grpcio-tools": {
+      "pypi": "https://pypi.org/project/grpcio-tools/",
+      "license": null
+    },
+    "lxml": {
+      "pypi": "https://pypi.org/project/lxml/",
+      "license": null
+    },
+    "markdown": {
+      "pypi": "https://pypi.org/project/markdown/",
+      "license": null
+    },
+    "markdownify": {
+      "pypi": "https://pypi.org/project/markdownify/",
+      "license": null
+    },
+    "markitdown[docx,pdf,xls,xlsx]": {
+      "pypi": "https://pypi.org/project/markitdown/",
+      "license": null
+    },
+    "mcp": {
+      "pypi": "https://pypi.org/project/mcp/",
+      "license": null
+    },
+    "minio": {
+      "pypi": "https://pypi.org/project/minio/",
+      "license": null
+    },
+    "mistletoe": {
+      "pypi": "https://pypi.org/project/mistletoe/",
+      "license": null
+    },
+    "ollama": {
+      "pypi": "https://pypi.org/project/ollama/",
+      "license": null
+    },
+    "openai": {
+      "pypi": "https://pypi.org/project/openai/",
+      "license": null
+    },
+    "paddleocr": {
+      "pypi": "https://pypi.org/project/paddleocr/",
+      "license": null
+    },
+    "paddlepaddle": {
+      "pypi": "https://pypi.org/project/paddlepaddle/",
+      "license": null
+    },
+    "pdfplumber": {
+      "pypi": "https://pypi.org/project/pdfplumber/",
+      "license": null
+    },
+    "pillow": {
+      "pypi": "https://pypi.org/project/pillow/",
+      "license": null
+    },
+    "playwright": {
+      "pypi": "https://pypi.org/project/playwright/",
+      "license": null
+    },
+    "protobuf": {
+      "pypi": "https://pypi.org/project/protobuf/",
+      "license": null
+    },
+    "pydantic": {
+      "pypi": "https://pypi.org/project/pydantic/",
+      "license": null
+    },
+    "pypdf": {
+      "pypi": "https://pypi.org/project/pypdf/",
+      "license": null
+    },
+    "pypdf2": {
+      "pypi": "https://pypi.org/project/pypdf2/",
+      "license": null
+    },
+    "python-docx": {
+      "pypi": "https://pypi.org/project/python-docx/",
+      "license": null
+    },
+    "requests": {
+      "pypi": "https://pypi.org/project/requests/",
+      "license": null
+    },
+    "trafilatura": {
+      "pypi": "https://pypi.org/project/trafilatura/",
+      "license": null
+    },
+    "urllib3": {
+      "pypi": "https://pypi.org/project/urllib3/",
+      "license": null
+    }
+  }
+}

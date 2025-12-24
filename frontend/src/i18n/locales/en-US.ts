@@ -1429,6 +1429,7 @@ export default {
     zhCN: '简体中文',
     enUS: 'English',
     ruRU: 'Русский',
+    koKR: '한국어',
     selectLanguage: 'Select Language',
     language: 'Language',
     languageDescription: 'Select interface display language',
@@ -1782,7 +1783,14 @@ export default {
       setDefault: 'Set as default',
       setDefaultFailed: 'Failed to set default model'
     },
-    confirmDelete: 'Are you sure you want to delete this model?'
+    confirmDelete: 'Are you sure you want to delete this model?',
+    builtinModel: {
+      title: 'Built-in Models',
+      description: 'Built-in models are visible to all tenants. Sensitive information is hidden and cannot be edited or deleted.',
+      guideLink: 'View Built-in Model Management Guide',
+      cannotEdit: 'Built-in models cannot be edited',
+      cannotDelete: 'Built-in models cannot be deleted',
+    },
   },
   // New: Ollama Settings
   ollamaSettings: {
@@ -1824,6 +1832,37 @@ export default {
       downloadStarted: 'Started downloading model {name}',
       downloadCompleted: 'Model {name} downloaded successfully',
       progressFailed: 'Failed to query download progress'
+    }
+  },
+  // New: LM Studio Settings
+  lmStudioSettings: {
+    title: 'LM Studio Settings',
+    description: 'Manage local LM Studio service and view available models',
+    status: {
+      label: 'LM Studio Service Status',
+      desc: 'Automatically detect local LM Studio service availability. If the service is down or the URL is incorrect, status will be "Unavailable".',
+      testing: 'Testing',
+      available: 'Available',
+      unavailable: 'Unavailable',
+      untested: 'Not Tested',
+      retest: 'Retest'
+    },
+    address: {
+      label: 'Service URL',
+      desc: 'The API address of the local LM Studio service, auto-detected by the system. To modify, set it in the .env file.',
+      placeholder: 'http://localhost:1234/v1',
+      failed: 'Connection failed. Please check whether LM Studio is running or the URL is correct'
+    },
+    installed: {
+      title: 'Available Models',
+      desc: 'List of models available in LM Studio',
+      ownedBy: 'Owner',
+      empty: 'No available models'
+    },
+    toasts: {
+      connected: 'Connected successfully',
+      connectFailed: 'Connection failed. Please check whether LM Studio is running',
+      listFailed: 'Failed to get model list'
     }
   },
   // New: MCP Service Dialog

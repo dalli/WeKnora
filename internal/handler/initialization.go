@@ -22,6 +22,7 @@ import (
 	"github.com/Tencent/WeKnora/internal/models/chat"
 	"github.com/Tencent/WeKnora/internal/models/embedding"
 	"github.com/Tencent/WeKnora/internal/models/rerank"
+	"github.com/Tencent/WeKnora/internal/models/utils/lmstudio"
 	"github.com/Tencent/WeKnora/internal/models/utils/ollama"
 	"github.com/Tencent/WeKnora/internal/types"
 	"github.com/Tencent/WeKnora/internal/types/interfaces"
@@ -57,6 +58,7 @@ type InitializationHandler struct {
 	kbRepository     interfaces.KnowledgeBaseRepository
 	knowledgeService interfaces.KnowledgeService
 	ollamaService    *ollama.OllamaService
+	lmStudioService  *lmstudio.LMStudioService
 	docReaderClient  *client.Client
 }
 
@@ -69,6 +71,7 @@ func NewInitializationHandler(
 	kbRepository interfaces.KnowledgeBaseRepository,
 	knowledgeService interfaces.KnowledgeService,
 	ollamaService *ollama.OllamaService,
+	lmStudioService *lmstudio.LMStudioService,
 	docReaderClient *client.Client,
 ) *InitializationHandler {
 	return &InitializationHandler{
@@ -79,6 +82,7 @@ func NewInitializationHandler(
 		kbRepository:     kbRepository,
 		knowledgeService: knowledgeService,
 		ollamaService:    ollamaService,
+		lmStudioService:  lmStudioService,
 		docReaderClient:  docReaderClient,
 	}
 }
@@ -1101,6 +1105,153 @@ func (h *InitializationHandler) ListOllamaModels(c *gin.Context) {
 
 	// 使用 ListModelsDetailed 获取包含大小等详细信息的模型列表
 	models, err := h.ollamaService.ListModelsDetailed(ctx)
+	if err != nil {
+		logger.ErrorWithFields(ctx, err, nil)
+		c.Error(errors.NewInternalServerError("获取模型列表失败: " + err.Error()))
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data": gin.H{
+			"models": models,
+		},
+	})
+}
+
+// CheckLMStudioStatus godoc
+// @Summary      检查LM Studio服务状态
+// @Description  检查LM Studio服务是否可用
+// @Tags         初始化
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  map[string]interface{}  "LM Studio状态"
+// @Router       /initialization/lmstudio/status [get]
+func (h *InitializationHandler) CheckLMStudioStatus(c *gin.Context) {
+	ctx := c.Request.Context()
+
+	logger.Info(ctx, "Checking LM Studio service status")
+
+	// Determine LM Studio base URL for display
+	baseURL := os.Getenv("LM_STUDIO_BASE_URL")
+	if baseURL == "" {
+		baseURL = "http://localhost:1234/v1"
+	}
+
+	// 检查LM Studio服务是否可用
+	err := h.lmStudioService.StartService(ctx)
+	if err != nil {
+		logger.ErrorWithFields(ctx, err, nil)
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"data": gin.H{
+				"available": false,
+				"error":     err.Error(),
+				"baseUrl":   baseURL,
+			},
+		})
+		return
+	}
+
+	logger.Info(ctx, "LM Studio service is available")
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data": gin.H{
+			"available": h.lmStudioService.IsAvailable(),
+			"baseUrl":   baseURL,
+		},
+	})
+}
+
+// CheckLMStudioModels godoc
+// @Summary      检查LM Studio模型状态
+// @Description  检查指定的LM Studio模型是否可用
+// @Tags         初始化
+// @Accept       json
+// @Produce      json
+// @Param        request  body      object{models=[]string}  true  "模型名称列表"
+// @Success      200      {object}  map[string]interface{}   "模型状态"
+// @Failure      400      {object}  errors.AppError          "请求参数错误"
+// @Security     Bearer
+// @Security     ApiKeyAuth
+// @Router       /initialization/lmstudio/models/check [post]
+func (h *InitializationHandler) CheckLMStudioModels(c *gin.Context) {
+	ctx := c.Request.Context()
+
+	logger.Info(ctx, "Checking LM Studio models status")
+
+	var req struct {
+		Models []string `json:"models" binding:"required"`
+	}
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		logger.Error(ctx, "Failed to parse models check request", err)
+		c.Error(errors.NewBadRequestError(err.Error()))
+		return
+	}
+
+	// 检查LM Studio服务是否可用
+	if !h.lmStudioService.IsAvailable() {
+		err := h.lmStudioService.StartService(ctx)
+		if err != nil {
+			logger.ErrorWithFields(ctx, err, nil)
+			c.Error(errors.NewInternalServerError("LM Studio服务不可用: " + err.Error()))
+			return
+		}
+	}
+
+	modelStatus := make(map[string]bool)
+
+	// 检查每个模型是否存在
+	for _, modelName := range req.Models {
+		available, err := h.lmStudioService.IsModelAvailable(ctx, modelName)
+		if err != nil {
+			logger.ErrorWithFields(ctx, err, map[string]interface{}{
+				"model_name": modelName,
+			})
+			modelStatus[modelName] = false
+		} else {
+			modelStatus[modelName] = available
+		}
+
+		logger.Infof(ctx, "Model %s availability: %v", utils.SanitizeForLog(modelName), modelStatus[modelName])
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data": gin.H{
+			"models": modelStatus,
+		},
+	})
+}
+
+// ListLMStudioModels godoc
+// @Summary      列出LM Studio模型
+// @Description  列出可用的LM Studio模型
+// @Tags         初始化
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  map[string]interface{}  "模型列表"
+// @Failure      500  {object}  errors.AppError         "服务器错误"
+// @Security     Bearer
+// @Security     ApiKeyAuth
+// @Router       /initialization/lmstudio/models [get]
+func (h *InitializationHandler) ListLMStudioModels(c *gin.Context) {
+	ctx := c.Request.Context()
+
+	logger.Info(ctx, "Listing available LM Studio models")
+
+	// 确保服务可用
+	if !h.lmStudioService.IsAvailable() {
+		if err := h.lmStudioService.StartService(ctx); err != nil {
+			logger.ErrorWithFields(ctx, err, nil)
+			c.Error(errors.NewInternalServerError("LM Studio服务不可用: " + err.Error()))
+			return
+		}
+	}
+
+	// 获取模型列表
+	models, err := h.lmStudioService.ListModels(ctx)
 	if err != nil {
 		logger.ErrorWithFields(ctx, err, nil)
 		c.Error(errors.NewInternalServerError("获取模型列表失败: " + err.Error()))

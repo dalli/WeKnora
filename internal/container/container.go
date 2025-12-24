@@ -43,6 +43,7 @@ import (
 	"github.com/Tencent/WeKnora/internal/logger"
 	"github.com/Tencent/WeKnora/internal/mcp"
 	"github.com/Tencent/WeKnora/internal/models/embedding"
+	"github.com/Tencent/WeKnora/internal/models/utils/lmstudio"
 	"github.com/Tencent/WeKnora/internal/models/utils/ollama"
 	"github.com/Tencent/WeKnora/internal/router"
 	"github.com/Tencent/WeKnora/internal/stream"
@@ -81,6 +82,7 @@ func BuildContainer(container *dig.Container) *dig.Container {
 	// External service clients
 	must(container.Provide(initDocReaderClient))
 	must(container.Provide(initOllamaService))
+	must(container.Provide(initLMStudioService))
 	must(container.Provide(initNeo4jClient))
 	must(container.Provide(stream.NewStreamManager))
 
@@ -554,6 +556,19 @@ func initDocReaderClient(cfg *config.Config) (*client.Client, error) {
 func initOllamaService() (*ollama.OllamaService, error) {
 	// Get Ollama service from existing factory function
 	return ollama.GetOllamaService()
+}
+
+// initLMStudioService initializes the LM Studio service client
+// Creates a client for interacting with LM Studio API for model inference
+// Parameters:
+//   - None
+//
+// Returns:
+//   - Configured LM Studio service client
+//   - Error if initialization fails
+func initLMStudioService() (*lmstudio.LMStudioService, error) {
+	// Get LM Studio service from existing factory function
+	return lmstudio.GetLMStudioService()
 }
 
 func initNeo4jClient() (neo4j.Driver, error) {

@@ -158,6 +158,20 @@ export function checkOllamaStatus(): Promise<{ available: boolean; version?: str
     });
 }
 
+// 检查LM Studio服务状态
+export function checkLMStudioStatus(): Promise<{ available: boolean; error?: string; baseUrl?: string }> {
+    return new Promise((resolve, reject) => {
+        get('/api/v1/initialization/lmstudio/status')
+            .then((response: any) => {
+                resolve(response.data || { available: false });
+            })
+            .catch((error: any) => {
+                console.error('检查LM Studio状态失败:', error);
+                resolve({ available: false, error: error.message || '检查失败' });
+            });
+    });
+}
+
 // Ollama 模型详细信息接口
 export interface OllamaModelInfo {
     name: string;
@@ -180,6 +194,28 @@ export function listOllamaModels(): Promise<OllamaModelInfo[]> {
     });
 }
 
+// LM Studio 模型详细信息接口
+export interface LMStudioModelInfo {
+    id: string;
+    object: string;
+    created: number;
+    owned_by: string;
+}
+
+// 列出可用的 LM Studio 模型
+export function listLMStudioModels(): Promise<LMStudioModelInfo[]> {
+    return new Promise((resolve, reject) => {
+        get('/api/v1/initialization/lmstudio/models')
+            .then((response: any) => {
+                resolve((response.data && response.data.models) || []);
+            })
+            .catch((error: any) => {
+                console.error('获取 LM Studio 模型列表失败:', error);
+                resolve([]);
+            });
+    });
+}
+
 // 检查Ollama模型状态
 export function checkOllamaModels(models: string[]): Promise<{ models: Record<string, boolean> }> {
     return new Promise((resolve, reject) => {
@@ -189,6 +225,20 @@ export function checkOllamaModels(models: string[]): Promise<{ models: Record<st
             })
             .catch((error: any) => {
                 console.error('检查Ollama模型状态失败:', error);
+                reject(error);
+            });
+    });
+}
+
+// 检查LM Studio模型状态
+export function checkLMStudioModels(models: string[]): Promise<{ models: Record<string, boolean> }> {
+    return new Promise((resolve, reject) => {
+        post('/api/v1/initialization/lmstudio/models/check', { models })
+            .then((response: any) => {
+                resolve(response.data || { models: {} });
+            })
+            .catch((error: any) => {
+                console.error('检查LM Studio模型状态失败:', error);
                 reject(error);
             });
     });

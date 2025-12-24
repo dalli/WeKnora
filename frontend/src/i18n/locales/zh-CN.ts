@@ -988,6 +988,7 @@ export default {
     zhCN: "简体中文",
     enUS: "English",
     ruRU: "Русский",
+    koKR: "한국어",
     selectLanguage: "选择语言",
     language: "语言",
     languageDescription: "选择界面显示语言",
@@ -1788,6 +1789,13 @@ export default {
       setDefaultFailed: "设置默认模型失败",
     },
     confirmDelete: "确定删除此模型吗？",
+    builtinModel: {
+      title: "内置模型",
+      description: "内置模型对所有租户可见，敏感信息会被隐藏，且不可编辑或删除。",
+      guideLink: "查看内置模型管理指南",
+      cannotEdit: "内置模型不能编辑",
+      cannotDelete: "内置模型不能删除",
+    },
   },
   // 新增：Ollama 设置
   ollamaSettings: {
@@ -1829,6 +1837,37 @@ export default {
       downloadStarted: "已开始下载模型 {name}",
       downloadCompleted: "模型 {name} 下载完成",
       progressFailed: "查询下载进度失败",
+    },
+  },
+  // 新增：LM Studio 设置
+  lmStudioSettings: {
+    title: "LM Studio 配置",
+    description: "管理本地 LM Studio 服务，查看可用模型",
+    status: {
+      label: "LM Studio 服务状态",
+      desc: '自动检测本地 LM Studio 服务是否可用。如果服务未运行或地址配置错误，将显示"不可用"状态',
+      testing: "检测中",
+      available: "可用",
+      unavailable: "不可用",
+      untested: "未检测",
+      retest: "重新检测",
+    },
+    address: {
+      label: "服务地址",
+      desc: "本地 LM Studio 服务的 API 地址，由系统自动检测。如需修改，请在 .env 配置文件中设置",
+      placeholder: "http://localhost:1234/v1",
+      failed: "连接失败，请检查 LM Studio 是否运行或服务地址是否正确",
+    },
+    installed: {
+      title: "可用的模型",
+      desc: "LM Studio 中可用的模型列表",
+      ownedBy: "所有者",
+      empty: "暂无可用模型",
+    },
+    toasts: {
+      connected: "连接成功",
+      connectFailed: "连接失败，请检查 LM Studio 是否运行",
+      listFailed: "获取模型列表失败",
     },
   },
   // 新增：MCP 服务对话框

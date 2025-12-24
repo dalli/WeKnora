@@ -1,5 +1,10 @@
 <template>
   <div class="user-menu" ref="menuRef">
+    <!-- 设置按钮 -->
+    <div class="settings-button" @click="handleSettings">
+      <t-icon name="setting" class="settings-icon" />
+      <span>{{ $t('general.allSettings') }}</span>
+    </div>
     <!-- 用户按钮 -->
     <div class="user-button" @click="toggleMenu">
       <div class="user-avatar">
@@ -48,11 +53,6 @@
         <div class="menu-item" @click="handleQuickNav('mcp')">
           <t-icon name="tools" class="menu-icon" />
           <span>{{ $t('settings.mcpService') }}</span>
-        </div>
-        <div class="menu-divider"></div>
-        <div class="menu-item" @click="handleSettings">
-          <t-icon name="setting" class="menu-icon" />
-          <span>{{ $t('general.allSettings') }}</span>
         </div>
         <div class="menu-divider"></div>
         <div class="menu-item" @click="openApiDoc">
@@ -143,7 +143,6 @@ const toggleMenu = () => {
 // 快捷导航到设置的特定部分
 const handleQuickNav = (section: string) => {
   menuVisible.value = false
-  uiStore.openSettings()
   router.push('/platform/settings')
   
   // 延迟一下，确保设置页面已经渲染
@@ -157,7 +156,6 @@ const handleQuickNav = (section: string) => {
 // 打开设置
 const handleSettings = () => {
   menuVisible.value = false
-  uiStore.openSettings()
   router.push('/platform/settings')
 }
 
@@ -260,6 +258,40 @@ onUnmounted(() => {
 .user-menu {
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+
+  &:hover {
+    background: #f5f7fa;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  .settings-icon {
+    font-size: 18px;
+    color: #666666;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+  }
 }
 
 .user-button {

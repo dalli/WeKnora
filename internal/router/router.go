@@ -358,6 +358,11 @@ func RegisterInitializationRoutes(r *gin.RouterGroup, handler *handler.Initializ
 	r.GET("/initialization/ollama/download/progress/:taskId", handler.GetDownloadProgress)
 	r.GET("/initialization/ollama/download/tasks", handler.ListDownloadTasks)
 
+	// LM Studio相关接口
+	r.GET("/initialization/lmstudio/status", handler.CheckLMStudioStatus)
+	r.GET("/initialization/lmstudio/models", handler.ListLMStudioModels)
+	r.POST("/initialization/lmstudio/models/check", handler.CheckLMStudioModels)
+
 	// 远程API相关接口
 	r.POST("/initialization/remote/check", handler.CheckRemoteModel)
 	r.POST("/initialization/embedding/test", handler.TestEmbeddingModel)

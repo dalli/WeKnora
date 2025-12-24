@@ -29,6 +29,7 @@
             >
               {{ $t('model.editor.sourceLocal') }}
             </t-radio>
+            <t-radio value="lmstudio">{{ $t('model.editor.sourceLMStudio') }}</t-radio>
             <t-radio value="remote">{{ $t('model.editor.sourceRemote') }}</t-radio>
           </t-radio-group>
 
@@ -236,7 +237,7 @@ import { useUIStore } from '@/stores/ui'
 interface ModelFormData {
   id: string
   name: string
-  source: 'local' | 'remote'
+  source: 'local' | 'remote' | 'lmstudio'
   modelName: string
   baseUrl?: string
   apiKey?: string

@@ -1282,6 +1282,7 @@ export default {
     zhCN: '简体中文',
     enUS: 'English',
     ruRU: 'Русский',
+    koKR: '한국어',
     selectLanguage: 'Выбрать язык',
     language: 'Язык',
     languageDescription: 'Выберите язык отображения интерфейса',
@@ -1488,7 +1489,14 @@ export default {
       setDefault: 'Установлено по умолчанию',
       setDefaultFailed: 'Не удалось установить по умолчанию'
     },
-    confirmDelete: 'Удалить эту модель?'
+    confirmDelete: 'Удалить эту модель?',
+    builtinModel: {
+      title: 'Встроенные модели',
+      description: 'Встроенные модели видны всем арендаторам. Конфиденциальная информация скрыта и не может быть отредактирована или удалена.',
+      guideLink: 'Просмотр руководства по управлению встроенными моделями',
+      cannotEdit: 'Встроенные модели нельзя редактировать',
+      cannotDelete: 'Встроенные модели нельзя удалять',
+    },
   },
   ollamaSettings: {
     title: 'Настройки Ollama',
@@ -1529,6 +1537,37 @@ export default {
       downloadStarted: 'Начата загрузка модели {name}',
       downloadCompleted: 'Модель {name} загружена',
       progressFailed: 'Не удалось получить прогресс загрузки'
+    }
+  },
+  // Новое: Настройки LM Studio
+  lmStudioSettings: {
+    title: 'Настройки LM Studio',
+    description: 'Управление локальным сервисом LM Studio и просмотр доступных моделей',
+    status: {
+      label: 'Статус LM Studio',
+      desc: 'Автоматическая проверка доступности локального сервиса LM Studio. При ошибке адреса или остановке сервиса статус будет «Недоступно».',
+      testing: 'Проверка',
+      available: 'Доступно',
+      unavailable: 'Недоступно',
+      untested: 'Не проверено',
+      retest: 'Проверить снова'
+    },
+    address: {
+      label: 'Адрес сервиса',
+      desc: 'API‑адрес локального сервиса LM Studio, определяется автоматически. Чтобы изменить, задайте значение в .env',
+      placeholder: 'http://localhost:1234/v1',
+      failed: 'Ошибка подключения. Проверьте, запущен ли LM Studio и корректен ли адрес'
+    },
+    installed: {
+      title: 'Доступные модели',
+      desc: 'Список моделей, доступных в LM Studio',
+      ownedBy: 'Владелец',
+      empty: 'Доступные модели отсутствуют'
+    },
+    toasts: {
+      connected: 'Соединение установлено',
+      connectFailed: 'Не удалось подключиться. Проверьте, запущен ли LM Studio',
+      listFailed: 'Не удалось получить список моделей'
     }
   },
   mcpServiceDialog: {

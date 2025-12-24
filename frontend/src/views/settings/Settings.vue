@@ -1,18 +1,8 @@
 <template>
-  <Teleport to="body">
-    <Transition name="modal">
-      <div v-if="visible" class="settings-overlay">
-        <div class="settings-modal">
-          <!-- 关闭按钮 -->
-          <button class="close-btn" @click="handleClose" :aria-label="$t('general.close')">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-
-          <div class="settings-container">
-            <!-- 左侧导航 -->
-            <div class="settings-sidebar">
+  <div v-if="route.path === '/platform/settings'" class="settings-page">
+    <div class="settings-container">
+      <!-- 左侧导航 -->
+      <div class="settings-sidebar">
               <div class="sidebar-header">
                 <h2 class="sidebar-title">{{ $t('general.settings') }}</h2>
               </div>
@@ -69,10 +59,10 @@
                   </Transition>
                 </template>
               </div>
-            </div>
+      </div>
 
-            <!-- 右侧内容区域 -->
-            <div class="settings-content">
+      <!-- 右侧内容区域 -->
+      <div class="settings-content">
               <div class="content-wrapper">
                 <!-- 常规设置 -->
                 <div v-if="currentSection === 'general'" class="section">
@@ -87,6 +77,11 @@
                 <!-- Ollama 设置 -->
                 <div v-if="currentSection === 'ollama'" class="section">
                   <OllamaSettings />
+                </div>
+
+                <!-- LM Studio 设置 -->
+                <div v-if="currentSection === 'lmstudio'" class="section">
+                  <LMStudioSettings />
                 </div>
 
                 <!-- Agent 配置 -->
@@ -119,12 +114,9 @@
                   <McpSettings />
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </Transition>
-  </Teleport>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -139,6 +131,7 @@ import ApiInfo from './ApiInfo.vue'
 import GeneralSettings from './GeneralSettings.vue'
 import ModelSettings from './ModelSettings.vue'
 import OllamaSettings from './OllamaSettings.vue'
+import LMStudioSettings from './LMStudioSettings.vue'
 import McpSettings from './McpSettings.vue'
 import WebSearchSettings from './WebSearchSettings.vue'
 
@@ -165,6 +158,7 @@ const navItems = computed(() => [
     ]
   },
   { key: 'ollama', icon: 'server', label: 'Ollama' },
+  { key: 'lmstudio', icon: 'server', label: 'LM Studio' },
   { 
     key: 'agent', 
     icon: 'chat', 
@@ -216,23 +210,14 @@ const handleSubMenuClick = (parentKey: string, childKey: string) => {
   }, 100)
 }
 
-// 控制弹窗显示
-const visible = computed(() => {
-  return route.path === '/platform/settings' || uiStore.showSettingsModal
-})
-
-// 关闭弹窗
+// 关闭设置页面
 const handleClose = () => {
-  uiStore.closeSettings()
-  // 如果当前路由是设置页，返回上一页
-  if (route.path === '/platform/settings') {
-    router.back()
-  }
+  router.back()
 }
 
 // 监听初始导航设置
 watch(() => uiStore.settingsInitialSection, (section) => {
-  if (section && visible.value) {
+  if (section && route.path === '/platform/settings') {
     currentSection.value = section
     const navItem = (navItems.value as any[]).find((item) => item.key === section)
     if (navItem && navItem.children && navItem.children.length > 0) {
@@ -256,7 +241,7 @@ watch(() => uiStore.settingsInitialSection, (section) => {
 
 // ESC 键关闭
 const handleEscape = (e: KeyboardEvent) => {
-  if (e.key === 'Escape' && visible.value) {
+  if (e.key === 'Escape' && route.path === '/platform/settings') {
     handleClose()
   }
 }
@@ -290,55 +275,15 @@ onUnmounted(() => {
 </script>
 
 <style lang="less" scoped>
-/* 遮罩层 */
-.settings-overlay {
+/* 设置页面 */
+.settings-page {
   position: fixed;
   inset: 0;
-  z-index: 1100;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  backdrop-filter: blur(4px);
-}
-
-/* 弹窗容器 */
-.settings-modal {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  height: 700px;
+  z-index: 1000;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 6px 28px rgba(15, 23, 42, 0.08);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-/* 关闭按钮 */
-.close-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: transparent;
-  color: #666666;
-  cursor: pointer;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  z-index: 10;
-
-  &:hover {
-    background: #f5f5f5;
-    color: #333333;
-  }
+  overflow: hidden;
 }
 
 .settings-container {
@@ -504,28 +449,6 @@ onUnmounted(() => {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* 弹窗动画 */
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.modal-enter-active .settings-modal,
-.modal-leave-active .settings-modal {
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-from .settings-modal,
-.modal-leave-to .settings-modal {
-  transform: scale(0.95);
-  opacity: 0;
 }
 
 /* 滚动条样式 */

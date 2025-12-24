@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: wechatopenai/weknora-ui:latest
+    image: skcha/weknora-ui:latest
     build: ./frontend
     container_name: WeKnora-frontend
     ports:
@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: wechatopenai/weknora-app:latest
+    image: skcha/weknora-app:latest
     build:
       context: .
       dockerfile: docker/Dockerfile.app
@@ -109,7 +109,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   docreader:
-    image: wechatopenai/weknora-docreader:latest
+    image: skcha/weknora-docreader:latest
     build:
       context: .
       dockerfile: docker/Dockerfile.docreader

@@ -11,6 +11,7 @@ interface Settings {
   selectedFiles: string[]; // 当前选中的文件ID列表
   modelConfig: ModelConfig;  // 模型配置
   ollamaConfig: OllamaConfig;  // Ollama配置
+  lmStudioConfig: LMStudioConfig;  // LM Studio配置
   webSearchEnabled: boolean;  // 网络搜索是否启用
   conversationModels: ConversationModels;
 }
@@ -58,6 +59,12 @@ interface OllamaConfig {
   enabled: boolean;  // 是否启用
 }
 
+// LM Studio 配置接口
+interface LMStudioConfig {
+  baseUrl: string;  // LM Studio 服务地址
+  enabled: boolean;  // 是否启用
+}
+
 // 默认设置
 const defaultSettings: Settings = {
   endpoint: import.meta.env.VITE_IS_DOCKER ? "" : "http://localhost:8080",
@@ -82,6 +89,10 @@ const defaultSettings: Settings = {
   },
   ollamaConfig: {
     baseUrl: "http://localhost:11434",
+    enabled: true
+  },
+  lmStudioConfig: {
+    baseUrl: "http://localhost:1234/v1",
     enabled: true
   },
   webSearchEnabled: false,  // 默认关闭网络搜索
@@ -237,6 +248,12 @@ export const useSettingsStore = defineStore("settings", {
     // 更新 Ollama 配置
     updateOllamaConfig(config: Partial<OllamaConfig>) {
       this.settings.ollamaConfig = { ...this.settings.ollamaConfig, ...config };
+      localStorage.setItem("WeKnora_settings", JSON.stringify(this.settings));
+    },
+    
+    // 更新 LM Studio 配置
+    updateLMStudioConfig(config: Partial<LMStudioConfig>) {
+      this.settings.lmStudioConfig = { ...this.settings.lmStudioConfig, ...config };
       localStorage.setItem("WeKnora_settings", JSON.stringify(this.settings));
     },
     

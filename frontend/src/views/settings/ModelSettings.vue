@@ -9,14 +9,14 @@
         <div class="info-box">
           <div class="info-header">
             <t-icon name="info-circle" class="info-icon" />
-            <span class="info-title">内置模型</span>
+            <span class="info-title">{{ $t('modelSettings.builtinModel.title') }}</span>
           </div>
           <div class="info-content">
-            <p>内置模型对所有租户可见，敏感信息会被隐藏，且不可编辑或删除。</p>
+            <p>{{ $t('modelSettings.builtinModel.description') }}</p>
             <p class="doc-link">
               <t-icon name="link" class="link-icon" />
               <a href="https://github.com/Tencent/WeKnora/blob/main/docs/BUILTIN_MODELS.md" target="_blank" rel="noopener noreferrer">
-                查看内置模型管理指南
+                {{ $t('modelSettings.builtinModel.guideLink') }}
               </a>
             </p>
           </div>
@@ -345,7 +345,7 @@ const openAddDialog = (type: 'chat' | 'embedding' | 'rerank' | 'vllm') => {
 const editModel = (type: 'chat' | 'embedding' | 'rerank' | 'vllm', model: any) => {
   // 内置模型不能编辑
   if (model.isBuiltin) {
-    MessagePlugin.warning('内置模型不能编辑')
+    MessagePlugin.warning(t('modelSettings.builtinModel.cannotEdit'))
     return
   }
   currentModelType.value = type
@@ -432,7 +432,7 @@ const deleteModel = async (type: 'chat' | 'embedding' | 'rerank' | 'vllm', model
   // 检查是否是内置模型
   const model = allModels.value.find(m => m.id === modelId)
   if (model?.is_builtin) {
-    MessagePlugin.warning('内置模型不能删除')
+    MessagePlugin.warning(t('modelSettings.builtinModel.cannotDelete'))
     return
   }
   
